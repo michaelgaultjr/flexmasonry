@@ -121,8 +121,12 @@ function setHeight(target) {
         heights[order - 1] += Math.ceil(parseFloat(height));
     });
 
+    const targetComputedStyles = window.getComputedStyle(container);
+    const targetPadding = parseFloat(targetComputedStyles.getPropertyValue('padding-top')) + parseFloat(targetComputedStyles.getPropertyValue('padding-bottom'))
+    const targetRowGap = parseFloat(targetComputedStyles.getPropertyValue('row-gap')) * (target.children.length - 1);
+
     const maxHeight = Math.max(...heights);
-    target.style.height = maxHeight + 'px';
+    target.style.height = (maxHeight + targetPadding + targetRowGap) + 'px';
 }
 
 function addBreakElements(target) {
